@@ -1,0 +1,12 @@
+/* Home section */
+#home {
+    padding: 0;
+    margin: 0;
+    margin-left: 250px;
+    color: var(--text);
+}
+
+.container {
+    height: 100vh;
+    background-color: var(--surface);
+}

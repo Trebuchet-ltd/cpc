@@ -1,72 +1,73 @@
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 250px;
-    background: var(--background);
-    overflow-x: hidden;
-    transition: all 0.2s ease-in-out;
-    z-index: 1;
-    color: var(--text);
-    display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  /* width: 250px; */
+  background: var(--background);
+  overflow-x: hidden;
+  transition: all 0.2s ease-in-out;
+  z-index: 1;
+  color: var(--text);
+  display: block;
 }
 
 /* Navigation collapse button */
 .sidebar .nav-collapse-button {
-    z-index: 2;
-    position: absolute;
-    top: 60px;
-    right: -20px;
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
-    background: var(--surface);
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  z-index: 2;
+  position: absolute;
+  top: 60px;
+  right: -20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background: var(--surface);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Navigation items */
 .sidebar-nav {
-    position: relative;
-    top: 150px;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  top: 150px;
 }
 
 .sidebar-nav .nav-item {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 60px;
-    color: var(--text);
-    font-size: 25px;
-    transition: all 0.2s ease-in-out;
-    text-decoration: none;
-    font-weight: 400;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  color: var(--text);
+  font-size: 25px;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  font-weight: 400;
 }
 
 .sidebar-nav .nav-item:hover {
-    background: var(--surface);
+  background: var(--surface);
 }
 
 .sidebar-nav .nav-item:active {
-    background: var(--surface);
+  background: var(--surface);
 }
 
 .sidebar-nav .nav-item:focus {
-    outline: none;
+  outline: none;
 }
 
 .sidebar-nav .nav-icon {
-    height: 24px;
-    width: 24px;
-    fill: var(--text);
+  height: 24px;
+  width: 24px;
+  fill: var(--text);
 }
 
 .sidebar-nav .nav-item-content {
-    margin-left: 50px;
-    display: flex;
-    align-items: baseline;
-    gap: 15px;
+  /* margin-left: 50px; */
+  display: flex;
+  align-items: baseline;
+  gap: 15px;
 }

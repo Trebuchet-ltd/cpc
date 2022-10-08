@@ -1,6 +1,6 @@
 import "./Table.css";
 
-const Table = ({head, content}) => {
+const Table = ({head, content, style}) => {
     let body = [], arr2 = [];
 
     for(let i=0; i<content.length; i++)
@@ -15,7 +15,7 @@ const Table = ({head, content}) => {
 
     return (
         <>
-            <table id="content-table">
+            <table className={"content-table " + style}>
                 <thead>
                     <tr>
                         <th>Sl.No</th>

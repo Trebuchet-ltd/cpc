@@ -1,4 +1,4 @@
-#content-table {
+.content-table {
     border-collapse: separate !important; 
     min-width: 400px;
     /* border: 10px solid #009809;
@@ -6,28 +6,28 @@
 }
 
 /* For Applying Border radius to the table */
-#content-table tr:last-child td:last-child {
+.content-table tr:last-child td:last-child {
     border-bottom-right-radius: 10px;
 }
 
-#content-table tr:last-child td:first-child {
+.content-table tr:last-child td:first-child {
     border-bottom-left-radius: 10px;
 }
 
-#content-table tr:first-child th:first-child {
+.content-table tr:first-child th:first-child {
     border-top-left-radius: 10px
 }
 
-#content-table tr:first-child th:last-child{
+.content-table tr:first-child th:last-child{
     border-top-right-radius:10px
 }
 
-#content-table tr:first-child th {
+.content-table tr:first-child th {
    border-top: 1px solid var(--table);
 }
 /*---------------------------------------------*/
 
-#content-table thead
+.content-table thead
 {
     background-color: #009809;/**/
     color: #fff;
@@ -36,42 +36,42 @@
 
 }
 
-#content-table th,
-#content-table td
+.content-table th,
+.content-table td
 {
     padding: 12px 15px;
 }
 
-#content-table tbody tr
+.content-table tbody tr
 {
     border-bottom: 1px solid #dddddd;
 }
 
-#content-table tbody tr:nth-of-type(even)
+.content-table tbody tr:nth-of-type(even)
 {
     background-color: var(--table);
 }
 
-#content-table tbody tr:nth-of-type(odd)
+.content-table tbody tr:nth-of-type(odd)
 {
     background-color: var(--background);
 }
 
-/* #content-table tbody tr:last-of-type
+/* .content-table tbody tr:last-of-type
 {
     border-bottom: 2px solid #009809;
 } */
 
 @media screen and (max-width: 480px)
 {
-    #content-table
+    .content-table
     {
         font-size: 1rem;
         min-width: 320px;
     }
 
-    #content-table th,
-    #content-table td
+    .content-table th,
+    .content-table td
     {
         padding: 10px 13px;
     }

@@ -1,5 +1,5 @@
 #publish {
-    width: inherit;
+    min-width: 100%;
     padding: 53px 63px 0 63px;
 }
 
@@ -83,4 +83,19 @@
     background-color: var(--primary-dark);
   }
 
-  
+  /*Custom styling table*/
+  .publish-table-style thead th:nth-of-type(2),
+  .publish-table-style tbody td:nth-of-type(2) {
+    width: 495px;
+  }
+
+  .publish-content {
+    position: relative;
+  }
+
+  .publish-list {
+    position: absolute;
+    width: 360px;
+    top: 0;
+    left: 780px;
+  }

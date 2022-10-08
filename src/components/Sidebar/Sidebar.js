@@ -11,9 +11,13 @@ import LogoutIcon from "../../assets/svg/logout.svg";
 
 import "./Sidebar.css";
 
+
+
 function Sidebar() {
   const [sidebar, setSidebar] = React.useState(false);
   const showSidebar = () => setSidebar(!sidebar);
+
+
   return (
     <>
       <aside style={{ width: sidebar ? "250px" : "80px" }} className="sidebar">
@@ -28,64 +32,34 @@ function Sidebar() {
           <Link to="/">{/* <IoIcons.IoChevronBackOutline /> */}</Link>
         </div>
         <div className="sidebar-nav">
-          <Link to="/" className="nav-item">
-            <div
-              style={{ marginLeft: sidebar ? "50px" : "30px" }}
-              className="nav-item-content"
-            >
-              <img src={HomeIcon} alt="" className="nav-icon" />
-              <div style={{ display: sidebar ? "block" : "none" }}>Home</div>
-            </div>
-          </Link>
-          <Link to="/publish" className="nav-item">
-            <div
-              style={{ marginLeft: sidebar ? "50px" : "30px" }}
-              className="nav-item-content"
-            >
-              <img src={PublishIcon} alt="" className="nav-icon" />
-              <div style={{ display: sidebar ? "block" : "none" }}>Publish</div>
-            </div>
-          </Link>
-          <Link to="/users" className="nav-item">
-            <div
-              style={{ marginLeft: sidebar ? "50px" : "30px" }}
-              className="nav-item-content"
-            >
-              <img src={UsersIcon} alt="" className="nav-icon" />
-              <div style={{ display: sidebar ? "block" : "none" }}>Users</div>
-            </div>
-          </Link>
-          <Link to="/songs" className="nav-item">
-            <div
-              style={{ marginLeft: sidebar ? "50px" : "30px" }}
-              className="nav-item-content"
-            >
-              <img src={SongsIcon} alt="" className="nav-icon" />
-              <div style={{ display: sidebar ? "block" : "none" }}>Songs</div>
-            </div>
-          </Link>
-          <Link to="/profile" className="nav-item">
-            <div
-              style={{ marginLeft: sidebar ? "50px" : "30px" }}
-              className="nav-item-content"
-            >
-              <img src={ProfileIcon} alt="" className="nav-icon" />
-              <div style={{ display: sidebar ? "block" : "none" }}>Profile</div>
-            </div>
-          </Link>
-          <Link to="/logout" className="nav-item">
-            <div
-              style={{ marginLeft: sidebar ? "50px" : "30px" }}
-              className="nav-item-content"
-            >
-              <img src={LogoutIcon} alt="" className="nav-icon" />
-              <div style={{ display: sidebar ? "block" : "none" }}>Logout</div>
-            </div>
-          </Link>
+		  <Option title="Home" icon={HomeIcon} active={sidebar} link="/"/>
+		  <Option title="Publish" icon={PublishIcon} active={sidebar} link="/publish"/>
+		  <Option title="Users" icon={UsersIcon} active={sidebar} link="/users"/>
+		  <Option title="Songs" icon={SongsIcon} active={sidebar} link="/songs"/>
+		  <Option title="Profile" icon={ProfileIcon} active={sidebar} link="/profile"/>
+		  <Option title="Logout" icon={LogoutIcon} active={sidebar} link="/logout"/>
         </div>
       </aside>
     </>
   );
+}
+
+const Option = ({icon, title, active, link}) => {
+
+	return(
+		<>
+			<Link to={link} className="nav-item">
+				<div
+					style={{ marginLeft: active ? "50px" : "30px" }}
+					className="nav-item-content"
+				>
+					<img src={icon} alt="" className="nav-icon" />
+					<div style={{ display: active ? "block" : "none" }}>{title}</div>
+				</div>
+          	</Link>
+
+		</>
+	);
 }
 
 export default Sidebar;

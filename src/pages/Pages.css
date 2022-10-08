@@ -6,7 +6,8 @@
     color: var(--text);
 } */
 
-.container {
-  height: 100vh;
-  background-color: var(--surface);
+:root {
+  --sidebar-width: 250px;
 }
+
+

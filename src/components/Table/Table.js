@@ -1,6 +1,6 @@
 import "./Table.css";
 
-const Table = ({head, content, style}) => {
+const Table = ({head, content, customStyle}) => {
     let body = [], arr2 = [];
 
     for(let i=0; i<content.length; i++)
@@ -15,13 +15,13 @@ const Table = ({head, content, style}) => {
 
     return (
         <>
-            <table className={"content-table " + style}>
+            <table className={"content-table " + customStyle}>
                 <thead>
                     <tr>
                         <th>Sl.No</th>
                         {
                             head.map((name) => (
-                                <th>{name}</th>
+                                <th key={name}>{name}</th>
                             ))
                         }
                     </tr>

@@ -1,0 +1,52 @@
+.songs-list {
+    width: 721px;
+    height: max-content;
+}
+
+#songs .list-view span{
+    display: flex;
+    height: 40px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    background-color: var(--primary);
+    cursor: pointer;
+
+}
+
+#songs .list-view:nth-of-type(1) span{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+
+#songs .list-view span h6 {
+    font-size: 20px;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-high);
+    line-height: 23.44px;
+}
+
+#songs .list-view span img {
+    transform: translateY(2px);
+    transition: transform 0.1s ease-in-out;
+}
+
+.list-view .list-view-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 25px;
+    align-items: center;
+    height: 40px;
+}
+
+.list-view .list-view-item:nth-of-type(even) {
+    background: var(--table);
+}
+
+.list-view .list-view-item li:nth-of-type(2) {
+    flex-grow: 1;
+    padding-left: 15px;
+}
+

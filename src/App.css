@@ -96,3 +96,29 @@ p {
   font-size: 18px;
   line-height: 21.5px;
 }
+
+section[id] {
+  min-width: 100%;
+  padding: 53px 63px 0 63px;
+  margin-bottom: 100px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 2px 2px 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--text-medium);
+  border-radius: 10px;
+}
+
+.item-hidden {
+  display: none !important;
+}

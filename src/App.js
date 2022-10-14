@@ -1,6 +1,6 @@
 import Sidebar from './components/Sidebar/Sidebar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { createContext, useState } from 'react';
+// import { createContext, useState } from 'react';
 
 // Import CSS
 import './App.css';
@@ -13,18 +13,20 @@ import Songs from './pages/Songs';
 import Profile from './pages/Profile';
 import Logout from './pages/Logout';
 
-export const UserContext = createContext();
+import MusicBar from "./components/MusicBar/MusicBar";
+
+// export const UserContext = createContext();
 
 
 function App() {
-  const [width, setWidth] = useState(250);
+  // const [width, setWidth] = useState(250);
 
   return (
     <div className="App">
       {/* <UserContext.Provider value={{width, setWidth}}>  */}
         <Router>
           <Sidebar />
-          <main class="container">
+          <main className="container">
             <Routes>
               <Route path="/" element={ <Home /> } />
               <Route path="/publish" element={ <Publish />} />
@@ -34,7 +36,7 @@ function App() {
               <Route path="/logout" element={ <Logout />} />
             </Routes>
           </main>
-
+          <MusicBar/>
 
         </Router>
       {/* </UserContext.Provider> */}

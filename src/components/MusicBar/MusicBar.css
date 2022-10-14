@@ -1,0 +1,38 @@
+.musicbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: calc(100% - 10px);
+    height: 90px;
+
+    background-color: var(--background);
+    z-index: 9;
+}
+
+.musicbar-controls,
+.musicbar-controls div {
+    display: flex;
+    align-items: center;
+}
+
+.musicbar-controls {
+    gap: 15px;
+}
+
+.musicbar-controls div {
+    justify-content: center;
+    width: 65px;
+    height: 65px;
+    border-radius: 100%;
+    background-color: var(--surface);
+    cursor: pointer;
+}
+
+.musicbar-controls img {
+    cursor: pointer;
+}

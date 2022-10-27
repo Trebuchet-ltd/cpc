@@ -9,21 +9,21 @@ import Left_seek from "../../assets/svg/left-seek.svg";
 
 import {API_URL} from "../../constants";
 
+const socket = new WebSocket("ws://localhost:8000/ws/music/zero/");
+
+socket.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+
+    console.log(data);
+    // document.querySelector('#chat-log').value += (data.message + '\n');
+};
+
+socket.onclose = function(e) {
+    console.error('Chat socket closed unexpectedly');
+};
+
 const MusicBar = () => {
     const [isPlaying, setIsPlaying] = useState(false);
-
-    const socket = new WebSocket("ws://localhost:8000/ws/music/zero/");
-
-    socket.onmessage = function(e) {
-        const data = JSON.parse(e.data);
-
-        console.log(data);
-        // document.querySelector('#chat-log').value += (data.message + '\n');
-    };
-
-    socket.onclose = function(e) {
-        console.error('Chat socket closed unexpectedly');
-    };
 
 
 
@@ -48,7 +48,7 @@ const MusicBar = () => {
     //      console.log(err.response);
     // })
 
-        socket.send(JSON.stringify({"is_playing": "true", "song": "1"}));
+        socket.send(JSON.stringify({"is_playing": isPlaying}));
     }
 
     function togglePlay() {

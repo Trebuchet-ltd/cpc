@@ -12,24 +12,43 @@ import {API_URL} from "../../constants";
 const MusicBar = () => {
     const [isPlaying, setIsPlaying] = useState(false);
 
+    const socket = new WebSocket("ws://localhost:8000/ws/music/zero/");
+
+    socket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+
+        console.log(data);
+        // document.querySelector('#chat-log').value += (data.message + '\n');
+    };
+
+    socket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+
+
+
     function sendPlayState() {
+
         // let data = new FormData();
         // data.append("is_playing", isPlaying);
         // data.append("song", "1");
 
         // let data = [{"is_playing": true, "song": "1"}];
 
-        axios.post(API_URL + "api/playstate/", {is_playing: true, song: 1}, {
-            header: {
-                "Content-Type": "application/json",
-                // "X-CSRFToken": document.getCookie("csrftoken")
-            }
-        })
-        .then((res) => {
-            alert(res.data);
-        }).catch( (err) => {
-         console.log(err.response);
-    })
+    //     axios.post(API_URL + "api/playstate/", {is_playing: true, song: 1}, {
+    //         header: {
+    //             "Content-Type": "application/json",
+    //             // "X-CSRFToken": document.getCookie("csrftoken")
+    //         }
+    //     })
+    //     .then((res) => {
+    //         alert(res.data);
+    //     }).catch( (err) => {
+    //      console.log(err.response);
+    // })
+
+        socket.send(JSON.stringify({"is_playing": "true", "song": "1"}));
     }
 
     function togglePlay() {

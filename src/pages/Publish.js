@@ -1,7 +1,6 @@
 //Importing libraries
-import { useState } from 'react'; 
+import { useState, useEffect } from 'react'; 
 import DragAndDropDiv from "../components/DragAndDropDiv/DragAndDrop";
-
 
 //Importing Components
 import Table from '../components/Table/Table';
@@ -9,12 +8,47 @@ import Table from '../components/Table/Table';
 //Importing styles
 import './Pages.css';
 import '../styles/publish.css';
+import {API_URL} from "../constants";
+import axios from 'axios';
+import {convertToMB} from "../utils";
+
 
 
 
 
 function Publish() {
     const [data, setData] = useState([]);
+
+    async function RetrieveUploadedFiles()  {
+        let url = API_URL + "api/";
+    
+        let response = await axios.get(url);
+    
+        JSONTo2DArray(response.data);
+      }
+
+    useEffect(() => {
+        RetrieveUploadedFiles()
+    }, [])
+    
+
+
+  function JSONTo2DArray(json) {
+
+    let arr = [];
+    for(let i=0; i<json.length; i++) {
+    
+      arr.push([json[i].name, convertToMB(json[i].size), json[i].date_created]);
+    }
+
+    setData(arr);
+  }
+
+
+    // async function getPlaylist() {
+    //     let playlist = await axios.get(API_URL + "send/");
+
+    // }
 
     return (
         <>
@@ -24,7 +58,7 @@ function Publish() {
 
                     <div className="publish-upload">
                         <h4>Upload Songs</h4>
-                        <DragAndDropDiv data={data} setData={setData}/>
+                        <DragAndDropDiv retrieveUploadedFiles={RetrieveUploadedFiles}/>
                     </div>
 
                     <div className="publish-table">
@@ -37,9 +71,10 @@ function Publish() {
                         </ul>
 
                         <Table 
-                            head={["Name", "Format", "Status"]}
+                            head={["Name", "Size", "Publish"]}
                             content={data}
                             customStyle={"publish-table-style"}
+                            custom
                             />
 
                             
@@ -47,7 +82,7 @@ function Publish() {
 
                     <div className="publish-list">
                         <h4>My Playlist</h4>
-                        <Table head={["Songs", "Level"]} content={[["Drake.mp3", "mp3"]]}/>
+                        <Table head={["Songs", "Level"]} content={data}/>
                     </div>
 
                 </div>

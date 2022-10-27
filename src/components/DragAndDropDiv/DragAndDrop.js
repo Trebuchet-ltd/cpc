@@ -1,38 +1,12 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import axios from 'axios'; /* axios is used to send POST request to server */
 import "./DragAndDrop.css";
-import {API_URL} from "../../constants";
 import { isAudio } from '../../utils';
 import FileIcon from "../../assets/svg/file.svg";
+import {API_URL} from "../../constants";
 
 /*---- Drag and Drop Container ----*/
-const DragAndDropDiv = ({data, setData}) => {
-
-    async function RetrieveUploadedFiles()  {
-        let url = API_URL + "api/";
-    
-        let response = await axios.get(url);
-    
-        console.log(response.data.length)
-        JSONTo2DArray(response.data);
-      }
-
-
-    useEffect(() => {
-        RetrieveUploadedFiles()
-    }, [])
-    
-
-
-  function JSONTo2DArray(json) {
-    let arr = [];
-    for(let i=0; i<json.length; i++) {
-      arr.push([json[i].name, json[i].size, json[i].date_created]);
-    }
-
-    setData(arr);
-  }
-
+const DragAndDropDiv = ({retrieveUploadedFiles}) => {
 
     // stores state of the drag and drop container
     const [dragActive, setDragActive] = useState(false);
@@ -112,18 +86,16 @@ const DragAndDropDiv = ({data, setData}) => {
                 data.append('name', files[i].name);
                 data.append('size', files[i].size);
             
-                /* URL to which POST request is to be sent */
-                let url = "http://localhost:8000/api/";
     
                 /* sending post request */
            
-                axios.post(url, data, {
+                axios.post(API_URL + "api/", data, {
                     header: {
                         'Content-Type': 'multipart/form-data' //Content type of data being sent (necessary to send file)
                     }
                 }).then((res) => {
                     alert("File uploaded successfully," + files[i].type);
-                    RetrieveUploadedFiles();
+                    retrieveUploadedFiles();
                 }).catch( (err) => {
                  console.log(err);
 

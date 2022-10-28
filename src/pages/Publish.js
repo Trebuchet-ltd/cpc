@@ -18,13 +18,21 @@ import {convertToMB} from "../utils";
 
 function Publish() {
     const [data, setData] = useState([]);
+    const [name, setName] = useState(null);
 
     async function RetrieveUploadedFiles()  {
         let url = API_URL + "api/";
-    
+        let names = [];
         let response = await axios.get(url);
-    
+        let str = "";
+
         JSONTo2DArray(response.data);
+        
+        for(let i = 0; i < response.data.length; i++) {
+            str = response.data[i].name.replace(/\s+/g, '_');
+            names.push(str);
+        }
+
       }
 
     useEffect(() => {
@@ -38,12 +46,23 @@ function Publish() {
     let arr = [];
     for(let i=0; i<json.length; i++) {
     
-      arr.push([json[i].name, convertToMB(json[i].size), json[i].date_created]);
+      arr.push([json[i].name, convertToMB(json[i].size), sendElement(i)]);
     }
 
     setData(arr);
   }
 
+  function sendElement(i) {
+    return (<button onClick={() => sendSong(i)}>Send</button>);
+  }
+
+  function sendSong(i) {
+    axios.post(API_URL + "send/", name[i], {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+  }
 
     // async function getPlaylist() {
     //     let playlist = await axios.get(API_URL + "send/");
@@ -71,10 +90,9 @@ function Publish() {
                         </ul>
 
                         <Table 
-                            head={["Name", "Size", "Publish"]}
+                            head={["Name", "Song", "Publish"]}
                             content={data}
                             customStyle={"publish-table-style"}
-                            custom
                             />
 
                             

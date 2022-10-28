@@ -12,6 +12,7 @@ import Users from './pages/Users';
 import Songs from './pages/Songs';
 import Profile from './pages/Profile';
 import Logout from './pages/Logout';
+import Playlist from './pages/Playlist';
 
 import MusicBar from "./components/MusicBar/MusicBar";
 
@@ -32,6 +33,7 @@ function App() {
               <Route path="/publish" element={ <Publish />} />
               <Route path="/users" element={ <Users /> } />
               <Route path="/songs" element={<Songs />} /> 
+              <Route path="/playlist" element={<Playlist />} /> 
               <Route path="/profile" element={<Profile />}/>
               <Route path="/logout" element={ <Logout />} />
             </Routes>

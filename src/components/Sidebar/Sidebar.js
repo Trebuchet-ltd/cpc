@@ -8,13 +8,14 @@ import UsersIcon from "../../assets/svg/users.svg";
 import SongsIcon from "../../assets/svg/songs.svg";
 import ProfileIcon from "../../assets/svg/profile.svg";
 import LogoutIcon from "../../assets/svg/logout.svg";
+import PlaylistIcon from "../../assets/svg/playlist.svg";
 
 import "./Sidebar.css";
 
 
 
 function Sidebar() {
-  const [sidebar, setSidebar] = React.useState(false);
+  const [sidebar, setSidebar] = React.useState(true);
   const showSidebar = () => setSidebar(!sidebar);
 
 
@@ -32,12 +33,13 @@ function Sidebar() {
           <Link to="/">{/* <IoIcons.IoChevronBackOutline /> */}</Link>
         </div>
         <div className="sidebar-nav">
-		  <Option title="Home" icon={HomeIcon} active={sidebar} link="/"/>
-		  <Option title="Publish" icon={PublishIcon} active={sidebar} link="/publish"/>
-		  <Option title="Users" icon={UsersIcon} active={sidebar} link="/users"/>
-		  <Option title="Songs" icon={SongsIcon} active={sidebar} link="/songs"/>
-		  <Option title="Profile" icon={ProfileIcon} active={sidebar} link="/profile"/>
-		  <Option title="Logout" icon={LogoutIcon} active={sidebar} link="/logout"/>
+          <Option title="Home" icon={HomeIcon} active={sidebar} link="/"/>
+          <Option title="Publish" icon={PublishIcon} active={sidebar} link="/publish"/>
+          <Option title="Users" icon={UsersIcon} active={sidebar} link="/users"/>
+          <Option title="Songs" icon={SongsIcon} active={sidebar} link="/songs"/>
+          <Option title="Playlist" icon={PlaylistIcon} active={sidebar} link="/playlist"/>
+          <Option title="Profile" icon={ProfileIcon} active={sidebar} link="/profile"/>
+          <Option title="Logout" icon={LogoutIcon} active={sidebar} link="/logout"/>
         </div>
       </aside>
     </>

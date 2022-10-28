@@ -1,0 +1,22 @@
+.checkbox-label {
+    width: 20px;
+    height: 20px;
+    background-color: var(--surface);
+    display: block;
+    position: relative;
+    border-radius: 2px;
+}
+
+.checkbox-label img {
+    position: absolute;
+    top: 3px;
+    left: 1px;
+}
+
+/* When the checkbox is checked, add a green background */
+#checkmark input:checked ~ .checkbox-label {
+    background-color: #00DC82;
+}
+  
+
+

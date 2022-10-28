@@ -1,0 +1,9 @@
+.playlist-container {
+    display: flex;
+    gap: 100px;
+}
+
+.songs-list-2 {
+    width: 530px;
+    height: max-content;
+}

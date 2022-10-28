@@ -1,0 +1,24 @@
+.color-info { border-right-color: #489AD6; }
+.color-error { border-right-color: #E53838; }
+.color-success { border-right-color: #00DC82; }
+
+.alertbox {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    width: 600px;
+    min-height: 80px;
+    background-color: var(--background);
+    display: flex;
+    align-items: center;
+}
+
+.alertbox figure {
+    padding: 0 20px;
+    border-right-width: 5px;
+    border-right-style: solid;
+    min-height: inherit;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}

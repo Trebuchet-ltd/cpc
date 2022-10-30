@@ -1,5 +1,5 @@
 import "./MusicBar.css";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 
 import Play from "../../assets/svg/play.svg";
@@ -7,48 +7,37 @@ import Pause from "../../assets/svg/pause.svg";
 import Right_seek from "../../assets/svg/right-seek.svg";
 import Left_seek from "../../assets/svg/left-seek.svg";
 
-import {API_URL} from "../../constants";
+import {API_URL, SOCKET_URL} from "../../constants";
 
-const socket = new WebSocket("ws://localhost:8000/ws/music/zero/");
+import {toast} from "react-toastify";
+import Alertbox from "../AlertBox/Alertbox";
 
-socket.onmessage = function(e) {
-    const data = JSON.parse(e.data);
 
-    console.log(data);
-    // document.querySelector('#chat-log').value += (data.message + '\n');
-};
-
-socket.onclose = function(e) {
-    console.error('Chat socket closed unexpectedly');
-};
 
 const MusicBar = () => {
+    // const [socket, setSocket] = useState();
     const [isPlaying, setIsPlaying] = useState(false);
 
+    useEffect(() => {
+        var socket = new WebSocket(SOCKET_URL + "music/zero/")
 
+        socket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+    
+            console.log(data);
+            // document.querySelector('#chat-log').value += (data.message + '\n');
+        };
+        
+        socket.onclose = function(e) {
+            toast(<Alertbox type="error" text="Websocket closed Unexpectedly"/>);
+        };
+
+        }, [])
 
 
     function sendPlayState() {
 
-        // let data = new FormData();
-        // data.append("is_playing", isPlaying);
-        // data.append("song", "1");
-
-        // let data = [{"is_playing": true, "song": "1"}];
-
-    //     axios.post(API_URL + "api/playstate/", {is_playing: true, song: 1}, {
-    //         header: {
-    //             "Content-Type": "application/json",
-    //             // "X-CSRFToken": document.getCookie("csrftoken")
-    //         }
-    //     })
-    //     .then((res) => {
-    //         alert(res.data);
-    //     }).catch( (err) => {
-    //      console.log(err.response);
-    // })
-
-        socket.send(JSON.stringify({"is_playing": isPlaying}));
+        this.socket.send(JSON.stringify({"is_playing": isPlaying}));
     }
 
     function togglePlay() {

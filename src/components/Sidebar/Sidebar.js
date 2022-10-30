@@ -48,6 +48,7 @@ function Sidebar() {
           {
             options.map((option, index) => (
               <Option 
+                  key={index}
                   title={option.title} 
                   icon={option.icon} 
                   link={option.link} 
@@ -58,13 +59,6 @@ function Sidebar() {
             ))
           }
 
-          {/* <Option title="Home" icon={HomeIcon} active={sidebar} link="/"/>
-          <Option title="Publish" icon={PublishIcon} active={sidebar} link="/publish"/>
-          <Option title="Users" icon={UsersIcon} active={sidebar} link="/users"/>
-          <Option title="Songs" icon={SongsIcon} active={sidebar} link="/songs"/>
-          <Option title="Playlist" icon={PlaylistIcon} active={sidebar} link="/playlist"/>
-          <Option title="Profile" icon={ProfileIcon} active={sidebar} link="/profile"/>
-          <Option title="Logout" icon={LogoutIcon} active={sidebar} link="/logout"/> */}
         </div>
       </aside>
     </>

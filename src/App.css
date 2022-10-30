@@ -122,3 +122,15 @@ section[id] {
 .item-hidden {
   display: none !important;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 6px 24px 6px 24px;
+  background-color: var(--primary);
+  border-radius: 5px;
+  color: var(--background);
+}

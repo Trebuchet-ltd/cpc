@@ -6,7 +6,7 @@
     position: absolute;
     top: 30px;
     right: 10px;
-    width: 600px;
+    width: 400px;
     min-height: 80px;
     background-color: var(--background);
     display: flex;

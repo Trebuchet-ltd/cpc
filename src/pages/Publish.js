@@ -10,7 +10,7 @@ import './Pages.css';
 import '../styles/publish.css';
 import {API_URL} from "../constants";
 import axios from 'axios';
-import {convertToMB} from "../utils";
+import {JSONTo2DArray} from "../utils";
 
 
 
@@ -40,18 +40,6 @@ function Publish() {
     }, [])
     
 
-
-  function JSONTo2DArray(json) {
-
-    let arr = [];
-    for(let i=0; i<json.length; i++) {
-    
-      arr.push([json[i].name, convertToMB(json[i].size), sendElement(i)]);
-    }
-
-    setData(arr);
-  }
-
   function sendElement(i) {
     return (<button onClick={() => sendSong(i)}>Send</button>);
   }
@@ -63,11 +51,6 @@ function Publish() {
         }
     })
   }
-
-    // async function getPlaylist() {
-    //     let playlist = await axios.get(API_URL + "send/");
-
-    // }
 
     return (
         <>

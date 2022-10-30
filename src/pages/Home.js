@@ -17,8 +17,10 @@ function Home() {
 
 
   useEffect(() => {
-
-  }, [data])
+    axios.post('http://localhost:8000/api/send/', {data})
+    .then((res) => {<Alertbox type="info" text={res}/>})
+    .catch((err) => {<Alertbox type="error" text={err}/>})
+  }, [])
 
   
   return (

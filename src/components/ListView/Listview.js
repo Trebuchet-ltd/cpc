@@ -17,8 +17,8 @@ const ListView = ({title, items}) => {
             <img src={arrow} style={{transform: (isExpanded) ? "rotate(180deg)" : "rotate(0)"}} alt=""/>
           </span>
           {
-            items.map((item) => (
-                <ul className={(isExpanded) ? "list-view-item" : "list-view-item item-hidden"}>
+            items.map((item, index) => (
+                <ul className={(isExpanded) ? "list-view-item" : "list-view-item item-hidden"} key={index}>
                     <li>{item.id}</li>
                     <li>{item.name}</li>
                     <li>Uploaded on: {item.date}</li>

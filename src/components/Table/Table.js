@@ -1,3 +1,4 @@
+import React from "react";
 import "./Table.css";
 
 const Table = ({head, content, customStyle}) => {
@@ -20,8 +21,11 @@ const Table = ({head, content, customStyle}) => {
                     <tr>
                         <th>Sl.No</th>
                         {
-                            head.map((name) => (
-                                <th key={name}>{name}</th>
+                            head.map((name, index) => (
+                                <React.Fragment  key={index}>
+                                    <th>{name}</th>
+                                </React.Fragment>
+                                
                             ))
                         }
                     </tr>

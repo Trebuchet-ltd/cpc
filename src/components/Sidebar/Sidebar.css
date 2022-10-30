@@ -51,10 +51,6 @@
   background: var(--surface);
 }
 
-.sidebar-nav .nav-item:active {
-  background: var(--surface);
-}
-
 .sidebar-nav .nav-item:focus {
   outline: none;
 }
@@ -73,6 +69,6 @@
   gap: 15px;
 }
 
-.sidebar .item-active {
+.sidebar-nav .item-active {
   background: var(--surface);
 }

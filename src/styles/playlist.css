@@ -7,3 +7,25 @@
     width: 530px;
     height: max-content;
 }
+
+.playlist-input {
+    margin: 40px 0;
+}
+
+.playlist-input input{
+    width: 100%;
+    border: 1px dashed #E5F9FF;
+    outline: none;
+    height: 53px;
+    background: var(--table);
+    border-radius: 5px;
+    font-size: 24px;
+    font-family: 'Garamond', sans-serif;
+}
+
+.playlist-input ul {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

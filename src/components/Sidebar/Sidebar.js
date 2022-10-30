@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link} from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
 // Import SVG files
 import HomeIcon from "../../assets/svg/home.svg";
@@ -17,7 +17,6 @@ import "./Sidebar.css";
 function Sidebar() {
   const [sidebar, setSidebar] = React.useState(true);
   const showSidebar = () => setSidebar(!sidebar);
-
 
   return (
     <>
@@ -50,7 +49,7 @@ const Option = ({icon, title, active, link}) => {
 
 	return(
 		<>
-			<Link to={link} className="nav-item">
+			<NavLink className="nav-item" to={link} >
 				<div
 					style={{ marginLeft: active ? "50px" : "30px" }}
 					className="nav-item-content"
@@ -58,7 +57,7 @@ const Option = ({icon, title, active, link}) => {
 					<img src={icon} alt="" className="nav-icon" />
 					<div style={{ display: active ? "block" : "none" }}>{title}</div>
 				</div>
-          	</Link>
+          	</NavLink>
 
 		</>
 	);

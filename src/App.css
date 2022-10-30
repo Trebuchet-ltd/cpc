@@ -134,3 +134,18 @@ section[id] {
   border-radius: 5px;
   color: var(--background);
 }
+
+.toast-style .Toastify__toast {
+  height: 100px;
+
+}
+
+.toast-style div {
+  background-color: var(--background);
+  width: 100%;
+  height: 100%;
+}
+
+.p-none {
+  pointer-events: none;
+}

@@ -16,11 +16,24 @@ import "./Sidebar.css";
 
 function Sidebar() {
   const [sidebar, setSidebar] = React.useState(true);
+  const [state, setState] = React.useState(false);
+
   const showSidebar = () => setSidebar(!sidebar);
 
+  let options = [
+    {title: "Home", icon: HomeIcon, link: "/"},
+    {title: "Publish", icon: PublishIcon, link: "/publish"},
+    {title: "Users", icon: UsersIcon, link: "/users"},
+    {title: "Songs", icon: SongsIcon, link: "/songs"},
+    {title: "Playlist", icon: PlaylistIcon, link: "/playlist"},
+    {title: "Profile", icon: ProfileIcon, link: "/profile"},
+    {title: "Logout", icon: LogoutIcon, link: "/logout"},
+  ];
+
   return (
+
     <>
-      <aside style={{ width: sidebar ? "250px" : "80px" }} className="sidebar">
+      <aside className="sidebar">
         <div className="nav-collapse-button">
           {sidebar ? (
             <FaIcons.FaAngleLeft onClick={showSidebar} size={30} />
@@ -31,28 +44,43 @@ function Sidebar() {
           {/* Implement collapse button */}
           <Link to="/">{/* <IoIcons.IoChevronBackOutline /> */}</Link>
         </div>
-        <div className="sidebar-nav">
-          <Option title="Home" icon={HomeIcon} active={sidebar} link="/"/>
+        <div className="sidebar-nav" style={{ width: sidebar ? "250px" : "80px" }}>
+          {
+            options.map((option, index) => (
+              <Option 
+                  title={option.title} 
+                  icon={option.icon} 
+                  link={option.link} 
+                  active={sidebar} 
+                  state={state} 
+                  setState={setState}
+                  id={index}/>
+            ))
+          }
+
+          {/* <Option title="Home" icon={HomeIcon} active={sidebar} link="/"/>
           <Option title="Publish" icon={PublishIcon} active={sidebar} link="/publish"/>
           <Option title="Users" icon={UsersIcon} active={sidebar} link="/users"/>
           <Option title="Songs" icon={SongsIcon} active={sidebar} link="/songs"/>
           <Option title="Playlist" icon={PlaylistIcon} active={sidebar} link="/playlist"/>
           <Option title="Profile" icon={ProfileIcon} active={sidebar} link="/profile"/>
-          <Option title="Logout" icon={LogoutIcon} active={sidebar} link="/logout"/>
+          <Option title="Logout" icon={LogoutIcon} active={sidebar} link="/logout"/> */}
         </div>
       </aside>
     </>
   );
 }
 
-const Option = ({icon, title, active, link}) => {
+const Option = ({icon, title, active, link, state, setState, id}) => {
+
+
 
 	return(
 		<>
-			<NavLink className="nav-item" to={link} >
+			<NavLink onClick={(e) => setState(e.target.id)} style={{backgroundColor: state == id ? "var(--surface)" : ""}} className="nav-item" id={id} to={link} >
 				<div
 					style={{ marginLeft: active ? "50px" : "30px" }}
-					className="nav-item-content"
+					className="nav-item-content p-none"
 				>
 					<img src={icon} alt="" className="nav-icon" />
 					<div style={{ display: active ? "block" : "none" }}>{title}</div>

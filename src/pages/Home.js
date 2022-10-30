@@ -26,7 +26,6 @@ function Home() {
   return (
     <>
       <main id='home' className="container">
-        <Alertbox type="error" text="hello"/>
         <div className="home-content">
           <button onClick={get} className="home-btn">Publish</button>
           <audio controls>

@@ -1,7 +1,9 @@
 import Sidebar from './components/Sidebar/Sidebar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import { createContext, useState } from 'react';
-
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Alertbox from './components/AlertBox/Alertbox';
+import {useEffect} from 'react';
 // Import CSS
 import './App.css';
 
@@ -18,12 +20,16 @@ import MusicBar from "./components/MusicBar/MusicBar";
 
 // export const UserContext = createContext();
 
-
 function App() {
-  // const [width, setWidth] = useState(250);
 
+  useEffect(() => {
+    toast(<Alertbox type="error" text="hello"/>)
+  }, [])
+ 
   return (
+
     <div className="App">
+      
       {/* <UserContext.Provider value={{width, setWidth}}>  */}
         <Router>
           <Sidebar />
@@ -38,6 +44,13 @@ function App() {
               <Route path="/logout" element={ <Logout />} />
             </Routes>
           </main>
+          <ToastContainer
+            autoClose={3000}
+            className="toast-style"
+            hideProgressBar={true}
+            position={toast.POSITION.TOP_RIGHT}
+            />
+
           <MusicBar/>
 
         </Router>

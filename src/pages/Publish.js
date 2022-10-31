@@ -45,7 +45,7 @@ function Publish() {
   }
 
   function sendSong(i) {
-    axios.post(API_URL + "send/", name[i], {
+    axios.post(API_URL + "api/send/", name[i], {
         headers: {
             'Content-Type': 'application/json'
         }

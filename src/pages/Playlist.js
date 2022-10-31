@@ -9,54 +9,35 @@ import axios from "axios";
 import {API_URL} from "../constants";
 import {JSONTo2DArray} from "../utils";
 
-const Catalogues = [
-    {
-      id: "01",
-      name: "Chicken"
-    },
-    {
-      id: "02",
-      name: "Beef"
-    },
-    {
-      id: "03",
-      name: "Lamb"
-    },
-    {
-      id: "04",
-      name: "Pork"
-    },
-    {
-      id: "05",
-      name: "Seafood"
-    },
-    {
-      id: "06",
-      name: "Dairy"
-    },
-    {
-      id: "07",
-      name: "Tofu"
-    },
-    {
-      id: "08",
-      name: "Vegan"
-    }
-  ];
-  
-
 const Playlist = () => {
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [isCheck, setIsCheck] = useState([]);
   const [list, setList] = useState([]);
+  const [playlist, setPlaylist] = useState([]);
+
+  const inputRef = useRef(null);
 
   useEffect(() => {
-    setList(Catalogues);
-  }, [list]);
+    axios.get(`${API_URL}playlist/`).then((res) => {
+      setList(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+
+    axios.get(`${API_URL}playlist/get/`).then((res) => {
+      setPlaylist(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+
+  }, []);
 
   const handleSelectAll = e => {
     setIsCheckAll(!isCheckAll);
-    let items = new Array(1, 2, 3)
+
+    let items = Array.from({length:list.length}, (_, index) => index + 1);
     setIsCheck(items);
     if (isCheckAll) {
       setIsCheck([]);
@@ -81,14 +62,37 @@ const Playlist = () => {
 
   };
 
-  async function getSongs() {
-    let songs = await axios.get(API_URL + "api/songs/");
-    console.log(songs.data[0])
-    console.log(JSONTo2DArray(songs.data));
+  function createPlaylist() {
+    let playlistName = inputRef.current.value;
+    let selectedSongs = [];
+    isCheck.forEach((item) => {
+      selectedSongs.push(list[item-1].music_id);
+    })
+
+    axios.post(`${API_URL}playlist/`, {name: playlistName, songs: selectedSongs}, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+  }).then((res) => {console.log(res.data)}).then((res) => {
+    axios.get(`${API_URL}playlist/get/`)
+    .then((res) => {
+      setPlaylist(res.data)
+    }).catch((err) => {console.log(err.response.data)})
+  }).catch((err) => {console.log(err)}); ;
+
+
+
   }
 
-  function createPlaylist() {
-    console.log(isCheck);
+  function updateList(list) {
+    var updatedArray = [];
+
+    list.forEach((item, index) => {
+        updatedArray.push([item.name, <Checkbox id={index+1} name={index+1} handleClick={handleClick} isChecked={isCheck.includes(index+1)}/>])
+    })
+
+    console.log(updatedArray);
+    return updatedArray;
   }
 
 
@@ -102,13 +106,11 @@ const Playlist = () => {
                 <h4>Songs List</h4>
                 <Table 
                         head={["Name", <Checkbox id={0} name={0} handleClick={handleSelectAll} isChecked={isCheckAll}/>]}
-                        content={[["oom.wav",  <Checkbox id={1} name={1}  handleClick={handleClick} isChecked={isCheck.includes(1)}/>],
-                        ["drunk in a shaapu.wav", <Checkbox id={2} name={2} handleClick={handleClick} isChecked={isCheck.includes(2)}/>],
-                        ["Chalmar.wav", <Checkbox id={3} name={3} handleClick={handleClick} isChecked={isCheck.includes(3)}/>],]}
+                        content={updateList(list)}
                         customStyle={"publish-table-style"}
                     />
                 <div className="playlist-input">
-                    <input type="text" placeholder="Enter playlist name"/>
+                    <input type="text" ref={inputRef} placeholder="Enter playlist name"/>
                     <ul>
                         <li>{isCheck.length} songs selected</li>
                         <li className="btn-primary pointer" onClick={createPlaylist}>Create Playlist</li>
@@ -117,8 +119,13 @@ const Playlist = () => {
                 </div>
                 <div className="songs-list-2">
                     <h4>Playlist</h4>
-                    <ListView title="Playlist 1" items={[{id: 1, name: "Drunk in a shaapu.mp3", date: "2020/08/07"},
-                {id: 1, name: "Drunk in a shaapu.mp3", date: "2020/08/07"}]}/>
+                    {
+                      playlist.map((item) => (
+                        <ListView title={item.name} items={[{id: 1, name: "Drunk in a shaapu.mp3", date: "2020/08/07"},
+                        {id: 1, name: "Drunk in a shaapu.mp3", date: "2020/08/07"}]}/>
+                      ))
+                    }
+
                 </div>
 
             </div>

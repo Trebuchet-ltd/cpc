@@ -8,31 +8,30 @@ import Right_seek from "../../assets/svg/right-seek.svg";
 import Left_seek from "../../assets/svg/left-seek.svg";
 
 import {API_URL, SOCKET_URL} from "../../constants";
+import {alertbox} from "../AlertBox/Alertbox";
 
-import {toast} from "react-toastify";
-import Alertbox from "../AlertBox/Alertbox";
+var socket = new WebSocket(SOCKET_URL + "music/zero/");
 
+socket.onopen = function(e) {
+    alertbox({text: "Connection established", type: "success"});
+    socket.send(JSON.stringify({"is_playing": false}));
+}
 
+socket.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+
+    console.log(data);
+}
+
+socket.onclose = function(e) {
+    alertbox({text: "Connection closed", type: "error"});
+}
 
 const MusicBar = () => {
     // const [socket, setSocket] = useState();
     const [isPlaying, setIsPlaying] = useState(false);
-
-    useEffect(() => {
-        var socket = new WebSocket(SOCKET_URL + "music/zero/")
-
-        socket.onmessage = function(e) {
-            const data = JSON.parse(e.data);
-    
-            console.log(data);
-            // document.querySelector('#chat-log').value += (data.message + '\n');
-        };
         
-        socket.onclose = function(e) {
-            toast(<Alertbox type="error" text="Websocket closed Unexpectedly"/>);
-        };
 
-        }, [])
 
 
     function sendPlayState() {

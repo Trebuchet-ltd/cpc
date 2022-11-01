@@ -2,7 +2,6 @@ import Sidebar from './components/Sidebar/Sidebar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Alertbox from './components/AlertBox/Alertbox';
 import {useEffect} from 'react';
 // Import CSS
 import './App.css';
@@ -21,10 +20,6 @@ import MusicBar from "./components/MusicBar/MusicBar";
 // export const UserContext = createContext();
 
 function App() {
-
-  useEffect(() => {
-    toast(<Alertbox type="error" text="hello"/>)
-  }, [])
  
   return (
 

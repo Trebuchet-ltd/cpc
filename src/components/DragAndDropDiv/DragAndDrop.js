@@ -3,10 +3,11 @@ import axios from 'axios'; /* axios is used to send POST request to server */
 import "./DragAndDrop.css";
 import { isAudio } from '../../utils';
 import FileIcon from "../../assets/svg/file.svg";
+import {alertbox} from "../AlertBox/Alertbox";
 import {API_URL} from "../../constants";
 
 /*---- Drag and Drop Container ----*/
-const DragAndDropDiv = ({retrieveUploadedFiles}) => {
+const DragAndDropDiv = ({name, retrieveUploadedFiles}) => {
 
     // stores state of the drag and drop container
     const [dragActive, setDragActive] = useState(false);
@@ -54,7 +55,7 @@ const DragAndDropDiv = ({retrieveUploadedFiles}) => {
 
         //For restricting the length of the selected files to 5
         if (files.length >= 6) {
-            alert("Maximum of 5 files can be uploaded at a time");
+            alertbox({text: "Maximum of 5 files can be uploaded at a time", type: "error"});
             return;
         }
 
@@ -62,9 +63,17 @@ const DragAndDropDiv = ({retrieveUploadedFiles}) => {
 
             //For checking if the selected file is audio file or not
             if(!isAudio(files[i])) {
-              alert('Not an audio file!!!');
+              alertbox({text: 'Not an audio file!!!', type: "error"});
               return;
             }
+
+			//For checking if the selected file is already in the database or not
+			if((files[i].name).toString in name) {
+				alertbox({text: 'File already exists!!!', type: "error"});
+				return 
+			}
+
+			console.log(files[i].name, name);
 
             totalSize += files[i].size;
 
@@ -73,10 +82,11 @@ const DragAndDropDiv = ({retrieveUploadedFiles}) => {
 
             if(totalSize >= 26214400) {
                 console.log("Total size exceeded[ > 25MB ]");
+                alertbox({text: 'Total size exceeded[ > 25MB ]', type: "error"});
                 break;
             }
 
-            console.log(files[i].size, totalSize);
+            console.log(files[i].size, totalSize); //For debugging purposes
 
 
             if(selected.findIndex(f => f.name === files[i].name) === -1) {
@@ -94,10 +104,10 @@ const DragAndDropDiv = ({retrieveUploadedFiles}) => {
                         'Content-Type': 'multipart/form-data' //Content type of data being sent (necessary to send file)
                     }
                 }).then((res) => {
-                    alert("File uploaded successfully," + files[i].type);
+					alertbox({text: 'File uploaded successfully', type: "success"});
                     retrieveUploadedFiles();
                 }).catch( (err) => {
-                 console.log(err);
+					alertbox({text: err, type: "error"});
 
                 });
             }

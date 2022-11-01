@@ -1,43 +1,62 @@
 //Importing libraries
 import { useState, useEffect } from 'react'; 
 import DragAndDropDiv from "../components/DragAndDropDiv/DragAndDrop";
-
-//Importing Components
-import Table from '../components/Table/Table';
+import axios from 'axios';
 
 //Importing styles
 import './Pages.css';
 import '../styles/publish.css';
+
+//Importing functions
 import {API_URL} from "../constants";
-import axios from 'axios';
-import {JSONTo2DArray} from "../utils";
+import {convertToMB, JSONTo2DArray} from "../utils";
+
+//Importing Components
+import Table from '../components/Table/Table';
 
 
-
-
-
-function Publish() {
+const Publish = () =>  {
     const [data, setData] = useState([]);
-    const [name, setName] = useState(null);
-
-    async function RetrieveUploadedFiles()  {
-        let url = API_URL + "api/";
-        let names = [];
-        let response = await axios.get(url);
-        let str = "";
-
-        JSONTo2DArray(response.data);
-        
-        for(let i = 0; i < response.data.length; i++) {
-            str = response.data[i].name.replace(/\s+/g, '_');
-            names.push(str);
-        }
-
-      }
+    const [name, setName] = useState([]);
 
     useEffect(() => {
         RetrieveUploadedFiles()
     }, [])
+
+    async function RetrieveUploadedFiles()  {
+        // let names = [];
+        await axios.get(API_URL + "api/")
+        .then((res) => {
+            let convertedData = JSONTo2DArray(res.data);
+            let names = [];
+
+            convertedData.shift();
+            convertedData.forEach((row, index) => {
+                row.push(sendElement(index))
+                row[1] = convertToMB(row[1]);
+                names.push(row[0]);
+            })
+
+            setData(convertedData);
+            setName(names);
+
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
+
+        // let str = "";
+        
+
+
+        
+        // for(let i = 0; i < response.data.length; i++) {
+        //     str = response.data[i].name.replace(/\s+/g, '_');
+        //     names.push(str);
+        // }
+
+    }
     
 
   function sendElement(i) {
@@ -60,7 +79,7 @@ function Publish() {
 
                     <div className="publish-upload">
                         <h4>Upload Songs</h4>
-                        <DragAndDropDiv retrieveUploadedFiles={RetrieveUploadedFiles}/>
+                        <DragAndDropDiv name={name} retrieveUploadedFiles={RetrieveUploadedFiles}/>
                     </div>
 
                     <div className="publish-table">
@@ -73,25 +92,14 @@ function Publish() {
                         </ul>
 
                         <Table 
-                            head={["Name", "Song", "Publish"]}
+                            head={["Name", "Size", "Publish"]}
                             content={data}
                             customStyle={"publish-table-style"}
-                            />
-
+                        />
                             
                     </div>
-
-                    <div className="publish-list">
-                        <h4>My Playlist</h4>
-                        <Table head={["Songs", "Level"]} content={data}/>
-                    </div>
-
                 </div>
-                {/* <h1>{file.name}</h1>
-                <input type="file" onChange={handleChange}/>
-                <button onClick={submit}>Upload to Server</button> */}
             </section>
-
         </>
     );
 }

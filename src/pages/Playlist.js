@@ -7,7 +7,6 @@ import Checkbox from "../components/Checkbox/Checkbox";
 import {useState, useEffect, useRef} from "react";
 import axios from "axios";
 import {API_URL} from "../constants";
-import {JSONTo2DArray} from "../utils";
 
 const Playlist = () => {
   const [isCheckAll, setIsCheckAll] = useState(false);

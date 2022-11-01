@@ -1,9 +1,15 @@
 import "./Alertbox.css";
+import {toast} from 'react-toastify';
 
 /*Importing requires icons from assets */
 import infoIcon from "../../assets/svg/info-icon.svg";
 import errorIcon from "../../assets/svg/error-icon.svg";
 import successIcon from "../../assets/svg/success-icon.svg";
+
+
+export const alertbox = ({text, type="info"} = {}) => {
+    toast(<Alertbox type={type} text={text} />);
+}
 
 const Alertbox = ({type, text}) => {
     let icon = null;

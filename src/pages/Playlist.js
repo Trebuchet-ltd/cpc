@@ -72,10 +72,12 @@ const Playlist = () => {
       headers: {
         'Content-Type': 'application/json'
       }
-  }).then((res) => {console.log(res.data)}).then((res) => {
+  }).then((res) => {
     axios.get(`${API_URL}playlist/get/`)
     .then((res) => {
-      setPlaylist(res.data)
+
+      setPlaylist(res.data);
+      console.log(res.data);
     }).catch((err) => {console.log(err.response.data)})
   }).catch((err) => {console.log(err)}); ;
 
@@ -120,8 +122,7 @@ const Playlist = () => {
                     <h4>Playlist</h4>
                     {
                       playlist.map((item) => (
-                        <ListView title={item.name} items={[{id: 1, name: "Drunk in a shaapu.mp3", date: "2020/08/07"},
-                        {id: 1, name: "Drunk in a shaapu.mp3", date: "2020/08/07"}]}/>
+                        <ListView title={item.name} items={item.music}/>
                       ))
                     }
 

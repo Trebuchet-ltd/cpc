@@ -19,9 +19,9 @@ const ListView = ({title, items}) => {
           {
             items.map((item, index) => (
                 <ul className={(isExpanded) ? "list-view-item" : "list-view-item item-hidden"} key={index}>
-                    <li>{item.id}</li>
+                    <li>{index+1}</li>
                     <li>{item.name}</li>
-                    <li>Uploaded on: {item.date}</li>
+                    <li>Uploaded on: {item.date_created}</li>
                 </ul>
             ))
           }

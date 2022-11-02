@@ -135,6 +135,15 @@ section[id] {
   color: var(--background);
 }
 
+.btn-oval {
+  display: inline-block;
+  padding: 3px 15px 3px 15px;
+  background-color: #489AD6; 
+  border-radius: 19px; 
+  outline: none;
+  border: none;
+}
+
 .toast-style .Toastify__toast {
   height: 100px;
 

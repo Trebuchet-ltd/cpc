@@ -63,7 +63,7 @@ const Publish = ({socketSend}) =>  {
     
 
   function sendElement(i) {
-    return (<button value={i} onClick={() => sendSong(i)}>Send</button>);
+    return (<button className="btn-oval pointer" value={i} onClick={() => sendSong(i)}>Send</button>);
   }
 
   function sendSong(i) {

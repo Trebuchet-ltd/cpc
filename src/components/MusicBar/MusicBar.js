@@ -10,34 +10,17 @@ import Left_seek from "../../assets/svg/left-seek.svg";
 import {API_URL, SOCKET_URL} from "../../constants";
 import {alertbox} from "../AlertBox/Alertbox";
 
-var socket = new WebSocket(SOCKET_URL + "music/zero/");
-
-socket.onopen = function(e) {
-    alertbox({text: "Connection established", type: "success"});
-    socket.send(JSON.stringify({"is_playing": false}));
-}
-
-socket.onmessage = function(e) {
-    const data = JSON.parse(e.data);
-
-    console.log(data);
-}
-
-socket.onclose = function(e) {
-    alertbox({text: "Connection closed", type: "error"});
-}
 
 const MusicBar = () => {
     // const [socket, setSocket] = useState();
     const [isPlaying, setIsPlaying] = useState(false);
         
-
-
-
+    
     function sendPlayState() {
 
-        this.socket.send(JSON.stringify({"is_playing": isPlaying}));
+        // socketSend(JSON.stringify({"is_playing": isPlaying}));
     }
+
 
     function togglePlay() {
         setIsPlaying(!isPlaying);
@@ -59,7 +42,7 @@ const MusicBar = () => {
                 <div className="musicbar-controls">
                     <img src={Left_seek} alt=""/>
                     <div onClick={togglePlay}>
-                        <img src={(isPlaying) ? Play : Pause} alt=""/>
+                        <img src={(isPlaying) ? Pause : Play} alt=""/>
                     </div>
                     
                     <img src={Right_seek} alt=""/>

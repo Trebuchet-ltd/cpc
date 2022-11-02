@@ -15,9 +15,10 @@ import {convertToMB, JSONTo2DArray} from "../utils";
 import Table from '../components/Table/Table';
 
 
-const Publish = () =>  {
+const Publish = ({socketSend}) =>  {
     const [data, setData] = useState([]);
     const [name, setName] = useState([]);
+    const [id, setId] = useState([]);
 
     useEffect(() => {
         RetrieveUploadedFiles()
@@ -27,18 +28,24 @@ const Publish = () =>  {
         // let names = [];
         await axios.get(API_URL + "api/")
         .then((res) => {
+            console.log(res.data);
+
             let convertedData = JSONTo2DArray(res.data);
             let names = [];
-
+            let ids = [];
             convertedData.shift();
             convertedData.forEach((row, index) => {
+                ids.push(row[0]);
+                row.shift();
                 row.push(sendElement(index))
                 row[1] = convertToMB(row[1]);
                 names.push(row[0]);
             })
 
+            console.log(ids);
             setData(convertedData);
             setName(names);
+            setId(ids);
 
         })
         .catch((err) => {
@@ -47,10 +54,6 @@ const Publish = () =>  {
 
 
         // let str = "";
-        
-
-
-        
         // for(let i = 0; i < response.data.length; i++) {
         //     str = response.data[i].name.replace(/\s+/g, '_');
         //     names.push(str);
@@ -60,15 +63,19 @@ const Publish = () =>  {
     
 
   function sendElement(i) {
-    return (<button onClick={() => sendSong(i)}>Send</button>);
+    return (<button value={i} onClick={() => sendSong(i)}>Send</button>);
   }
 
   function sendSong(i) {
-    axios.post(API_URL + "api/send/", name[i], {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
+    socketSend({"song_id": id[i]});
+    // socketSend(1);
+    console.log(id);
+
+    // axios.post(API_URL + "api/send/", name[i], {
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     }
+    // })
   }
 
     return (

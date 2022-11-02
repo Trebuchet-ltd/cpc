@@ -18,7 +18,7 @@ const MusicBar = ({socketSend}) => {
     
     function sendPlayState() {
 
-        socketSend(JSON.stringify({"is_playing": isPlaying}));
+        socketSend({"is_playing": isPlaying});
     }
 
 

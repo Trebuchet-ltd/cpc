@@ -11,14 +11,14 @@ import {API_URL, SOCKET_URL} from "../../constants";
 import {alertbox} from "../AlertBox/Alertbox";
 
 
-const MusicBar = () => {
+const MusicBar = ({socketSend}) => {
     // const [socket, setSocket] = useState();
     const [isPlaying, setIsPlaying] = useState(false);
         
     
     function sendPlayState() {
 
-        // socketSend(JSON.stringify({"is_playing": isPlaying}));
+        socketSend(JSON.stringify({"is_playing": isPlaying}));
     }
 
 

@@ -79,7 +79,7 @@ function App() {
             position={toast.POSITION.TOP_RIGHT}
             />
 
-          <MusicBar/>
+          <MusicBar socketSend={sendMessage}/>
 
         </Router>
       {/* </UserContext.Provider> */}

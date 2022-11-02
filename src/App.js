@@ -49,7 +49,7 @@ function App() {
   }, [])
 
   const sendMessage = (data) => {
-    // socket.send(JSON.stringify(data));
+    socket.send(JSON.stringify(data));
     console.log(data);
   }
 

@@ -13,69 +13,50 @@ import {convertToMB, JSONTo2DArray} from "../utils";
 
 //Importing Components
 import Table from '../components/Table/Table';
+import { alertbox } from '../components/AlertBox/Alertbox';
+
 
 
 const Publish = ({socketSend}) =>  {
     const [data, setData] = useState([]);
-    const [name, setName] = useState([]);
-    const [id, setId] = useState([]);
+    const [name, setName] = useState("");
 
     useEffect(() => {
-        RetrieveUploadedFiles()
+        RetrieveUploadedFiles();
     }, [])
 
+
     async function RetrieveUploadedFiles()  {
-        // let names = [];
         await axios.get(API_URL + "api/")
         .then((res) => {
-            console.log(res.data);
-
-            let convertedData = JSONTo2DArray(res.data);
-            let names = [];
-            let ids = [];
+            let convertedData =  JSONTo2DArray(res.data);
             convertedData.shift();
-            convertedData.forEach((row, index) => {
-                ids.push(row[0]);
+            convertedData.forEach((row) => {
+                let id = row[0];
+
                 row.shift();
-                row.push(sendElement(index))
+                row.push(sendElement(id));
                 row[1] = convertToMB(row[1]);
-                names.push(row[0]);
-            })
 
-            console.log(ids);
+            });
+
             setData(convertedData);
-            setName(names);
-            setId(ids);
-
         })
         .catch((err) => {
+            alertbox({text: "Error retrieving files", type: "error"});
             console.log(err);
-        });
-
-
-        // let str = "";
-        // for(let i = 0; i < response.data.length; i++) {
-        //     str = response.data[i].name.replace(/\s+/g, '_');
-        //     names.push(str);
-        // }
+        }); 
 
     }
     
 
-  function sendElement(i) {
-    return (<button className="btn-oval pointer" value={i} onClick={() => sendSong(i)}>Send</button>);
+  const sendElement = (i) => {
+    return (<button className="btn-oval pointer" value={i} onClick={(e) => sendSong(e)}> Send </button>);
   }
 
-  function sendSong(i) {
-    socketSend({"song_id": id[i]});
-    // socketSend(1);
-    console.log(id);
-
-    // axios.post(API_URL + "api/send/", name[i], {
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     }
-    // })
+  const sendSong = (e) => {
+    socketSend({"song_id": e.target.value});
+    // console.log({"song_id": e.target.value});
   }
 
     return (

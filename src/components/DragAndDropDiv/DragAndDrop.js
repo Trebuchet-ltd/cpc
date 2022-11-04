@@ -67,11 +67,13 @@ const DragAndDropDiv = ({name, retrieveUploadedFiles}) => {
               return;
             }
 
+			console.log(name, files[i]);
+
 			//For checking if the selected file is already in the database or not
-			if((files[i].name).toString in name) {
-				alertbox({text: 'File already exists!!!', type: "error"});
-				return 
-			}
+			// if((files[i].name).toString in name) {
+			// 	alertbox({text: 'File already exists!!!', type: "error"});
+			// 	return 
+			// }
 
 			console.log(files[i].name, name);
 

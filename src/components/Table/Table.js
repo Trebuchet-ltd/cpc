@@ -2,17 +2,17 @@ import React from "react";
 import "./Table.css";
 
 const Table = ({head, content, customStyle}) => {
-    let body = [], arr2 = [];
 
-    for(let i=0; i<content.length; i++)
-    {
-        arr2.splice(0, arr2.length);
-        for(let j=0; j<content[0].length; j++)
-        {
-            arr2.push(<td>{content[i][j]}</td>);
-        }
-        body.push(<tr><td>{i+1}</td>{arr2.map(item => item)}</tr>);
-    }
+    let bodyContent = content.map((row, index) => {
+        return (
+            <tr key={index}>
+                <td>{index+1}</td>
+                {row.map((item, j) => {
+                    return <td key={j}>{item}</td>
+                })}
+            </tr>
+        )
+    });
 
     return (
         <>
@@ -22,7 +22,7 @@ const Table = ({head, content, customStyle}) => {
                         <th>Sl.No</th>
                         {
                             head.map((name, index) => (
-                                <React.Fragment  key={index}>
+                                <React.Fragment key={index}>
                                     <th>{name}</th>
                                 </React.Fragment>
                                 
@@ -31,7 +31,7 @@ const Table = ({head, content, customStyle}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {body}
+                    {bodyContent}
                 </tbody>
             </table>
         </>

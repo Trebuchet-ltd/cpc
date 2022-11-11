@@ -8,7 +8,8 @@ import {useState, useEffect, useRef} from "react";
 import axios from "axios";
 import {API_URL} from "../constants";
 
-const Playlist = () => {
+
+const Playlist = ({socketSend}) => {
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [isCheck, setIsCheck] = useState([]);
   const [list, setList] = useState([]);
@@ -122,7 +123,7 @@ const Playlist = () => {
                     <h4>Playlist</h4>
                     {
                       playlist.map((item) => (
-                        <ListView title={item.name} items={item.music}/>
+                        <ListView title={item.name} items={item.music} socketSend={socketSend}/>
                       ))
                     }
 

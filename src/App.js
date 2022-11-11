@@ -20,7 +20,6 @@ import MusicBar from "./components/MusicBar/MusicBar";
 import {SOCKET_URL} from "./constants";
 import {alertbox} from "./components/AlertBox/Alertbox";
 
-import useWebSocket from 'react-use-websocket';
 
 // export const UserContext = createContext();
 
@@ -52,12 +51,12 @@ function App() {
     socket.send(JSON.stringify(data));
   }
 
+
   return (
     
 
     <div className="App">
       
-      {/* <UserContext.Provider value={{width, setWidth}}>  */}
         <Router>
           <Sidebar />
           <main className="container">
@@ -66,7 +65,7 @@ function App() {
               <Route path="/publish" element={ <Publish socketSend={sendMessage}/>} />
               <Route path="/users" element={ <Users /> } />
               <Route path="/songs" element={<Songs />} /> 
-              <Route path="/playlist" element={<Playlist />} /> 
+              <Route path="/playlist" element={<Playlist socketSend={sendMessage}/>} /> 
               <Route path="/profile" element={<Profile />}/>
               <Route path="/logout" element={ <Logout />} />
             </Routes>
@@ -81,7 +80,6 @@ function App() {
           <MusicBar socketSend={sendMessage}/>
 
         </Router>
-      {/* </UserContext.Provider> */}
     </div>
   );
 }

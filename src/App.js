@@ -2,7 +2,8 @@ import Sidebar from './components/Sidebar/Sidebar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {useEffect, useState} from 'react';
+// import {useEffect, useState} from 'react';
+
 // Import CSS
 import './App.css';
 
@@ -23,34 +24,33 @@ import {alertbox} from "./components/AlertBox/Alertbox";
 
 // export const UserContext = createContext();
 
-var socket = new WebSocket(SOCKET_URL + "music/lvl0/");
+  var socket = new WebSocket(SOCKET_URL + "music/lvl0/");
 
-socket.onopen = function(e) {
-    alertbox({text: "Websocket: Connection established", type: "success"});
-    socket.send(JSON.stringify({"is_playing": false}));
-}
-
-socket.onmessage = function(e) {
-    const data = JSON.parse(e.data);
-
-    console.log(data);
-}
-
-socket.onclose = function(e) {
-    alertbox({text: "Websocket: Connection closed", type: "error"});
-}
-
-function App() {
-  const [webSocket, setWebSocket] = useState(null);
-
-  useEffect(() => {
-    setWebSocket(socket);
-  }, [])
-
-  const sendMessage = (data) => {
-    socket.send(JSON.stringify(data));
+  socket.onopen = function(e) {
+      alertbox({text: "Websocket: Connection established", type: "success"});
+      socket.send(JSON.stringify({"is_playing": false}));
   }
 
+  socket.onmessage = function(e) {
+      const data = JSON.parse(e.data);
+
+      console.log(data);
+  }
+
+  socket.onclose = function(e) {
+      alertbox({text: "Websocket: Connection closed", type: "error"});
+      alertbox({text: 'Trying to reconnect with the websocket...' + e.reason, type: "info"});
+      
+  }
+
+
+
+
+function App() {
+
+  const sendMessage = (data) => {
+   socket.send(JSON.stringify(data));
+  }
 
   return (
     

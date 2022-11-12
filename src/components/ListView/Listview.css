@@ -33,7 +33,7 @@
     justify-content: space-between;
     padding: 0 25px;
     align-items: center;
-    height: 40px;
+    min-height: 40px;
 }
 
 .list-view .list-view-item:nth-of-type(even) {

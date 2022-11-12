@@ -1,21 +1,18 @@
 import "./MusicBar.css";
-import {useEffect, useState} from "react";
-import axios from "axios";
+import {useState} from "react";
 
 import Play from "../../assets/svg/play.svg";
 import Pause from "../../assets/svg/pause.svg";
 import Right_seek from "../../assets/svg/right-seek.svg";
 import Left_seek from "../../assets/svg/left-seek.svg";
 
-import {API_URL, SOCKET_URL} from "../../constants";
-import {alertbox} from "../AlertBox/Alertbox";
+// import {API_URL, SOCKET_URL} from "../../constants";
+// import {alertbox} from "../AlertBox/Alertbox";
 
 
 const MusicBar = ({socketSend}) => {
-    // const [socket, setSocket] = useState();
-    const [isPlaying, setIsPlaying] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(true);
         
-    
     function sendPlayState() {
 
         socketSend({"is_playing": isPlaying});
@@ -42,7 +39,7 @@ const MusicBar = ({socketSend}) => {
                 <div className="musicbar-controls">
                     <img src={Left_seek} alt=""/>
                     <div onClick={togglePlay}>
-                        <img src={(isPlaying) ? Pause : Play} alt=""/>
+                        <img src={(isPlaying) ? Play : Pause} alt=""/>
                     </div>
                     
                     <img src={Right_seek} alt=""/>

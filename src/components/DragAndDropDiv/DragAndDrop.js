@@ -7,7 +7,7 @@ import {alertbox} from "../AlertBox/Alertbox";
 import {API_URL} from "../../constants";
 
 /*---- Drag and Drop Container ----*/
-const DragAndDropDiv = ({name, retrieveUploadedFiles}) => {
+const DragAndDropDiv = ({fileContents, retrieveUploadedFiles}) => {
 
     // stores state of the drag and drop container
     const [dragActive, setDragActive] = useState(false);
@@ -67,15 +67,13 @@ const DragAndDropDiv = ({name, retrieveUploadedFiles}) => {
               return;
             }
 
-			console.log(name, files[i]);
+			      console.log(fileContents, files[i].name);
 
-			//For checking if the selected file is already in the database or not
-			// if((files[i].name).toString in name) {
-			// 	alertbox({text: 'File already exists!!!', type: "error"});
-			// 	return 
-			// }
-
-			console.log(files[i].name, name);
+            //For checking if the selected file is already in the database or not
+            if(fileContents.findIndex(f => f.name === files[i].name) !== -1) {
+              alertbox({text: 'File already exists!!!', type: "error"});
+              return;
+            }
 
             totalSize += files[i].size;
 
@@ -106,12 +104,15 @@ const DragAndDropDiv = ({name, retrieveUploadedFiles}) => {
                         'Content-Type': 'multipart/form-data' //Content type of data being sent (necessary to send file)
                     }
                 }).then((res) => {
-					alertbox({text: 'File uploaded successfully', type: "success"});
+					          alertbox({text: 'File uploaded successfully', type: "success"});
                     retrieveUploadedFiles();
                 }).catch( (err) => {
-					alertbox({text: err, type: "error"});
+					          alertbox({text: err, type: "error"});
 
                 });
+            }
+            else {
+              alertbox({text: "File already exists!!!", type: "error"})
             }
         }
 

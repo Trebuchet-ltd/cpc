@@ -16,10 +16,9 @@ import Table from '../components/Table/Table';
 import { alertbox } from '../components/AlertBox/Alertbox';
 
 
-
 const Publish = ({socketSend}) =>  {
     const [data, setData] = useState([]);
-    const [fileDetails, setFileDetails] = useState({name: null, size: null, type: null});
+    const [fileDetails, setFileDetails] = useState([]);
 
     useEffect(() => {
         RetrieveUploadedFiles();
@@ -30,21 +29,26 @@ const Publish = ({socketSend}) =>  {
         await axios.get(API_URL + "api/")
         .then((res) => {
             let convertedData =  JSONTo2DArray(res.data);
-            let fileObject = {};
-
+            let fileObject = [];
             convertedData.shift();
             convertedData.forEach((row) => {
                 let id = row[0];
+                let tempObject = {}
 
                 row.shift();
                 row.push(sendElement(id));
                 row[1] = convertToMB(row[1]);
 
-                fileObject.name = row[0];
-                fileObject.size = row[1];
+                tempObject.name = row[0];
+                tempObject.size = row[1];
+
+                console.log(tempObject);
+
+                fileObject.push(tempObject);
 
             });
 
+            console.log(fileObject);
             setData(convertedData);
             setFileDetails(fileObject);
         })
@@ -72,7 +76,7 @@ const Publish = ({socketSend}) =>  {
 
                     <div className="publish-upload">
                         <h4>Upload Songs</h4>
-                        <DragAndDropDiv name={fileDetails} retrieveUploadedFiles={RetrieveUploadedFiles}/>
+                        <DragAndDropDiv fileContents={fileDetails} retrieveUploadedFiles={RetrieveUploadedFiles}/>
                     </div>
 
                     <div className="publish-table">

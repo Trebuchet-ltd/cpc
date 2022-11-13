@@ -18,6 +18,10 @@ const MusicBar = ({socketSend}) => {
         socketSend({"is_playing": isPlaying});
     }
 
+    function sendSeekState(state) {
+        socketSend({"is_playing": state});
+    }
+
 
     function togglePlay() {
         setIsPlaying(!isPlaying);
@@ -37,12 +41,18 @@ const MusicBar = ({socketSend}) => {
                 </div>
 
                 <div className="musicbar-controls">
-                    <img src={Left_seek} alt=""/>
+                    <span onClick={() => sendSeekState("previous")}>
+                        <img src={Left_seek} alt=""/>
+                    </span>
+                        
                     <div onClick={togglePlay}>
                         <img src={(isPlaying) ? Play : Pause} alt=""/>
                     </div>
                     
-                    <img src={Right_seek} alt=""/>
+                    <span onClick={() => sendSeekState("next")}>
+                        <img src={Right_seek} alt=""/>
+                    </span>
+                    
                 </div>
 
                 <div className="musicbar-right">
